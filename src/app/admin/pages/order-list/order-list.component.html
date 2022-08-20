@@ -1,0 +1,108 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Pedidos</h5>
+                  <span class="h2 font-weight-bold mb-0">Publicados: {{orderList.length}}</span>
+                </div>
+              </div>
+              <p class="mt-2 mb-0 text-muted text-sm">
+                <span class="text-success mr-2">Total: </span>
+                <span class="text-nowrap">{{orderList.length}}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+
+
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow" *ngIf="orderList; else preload">
+        <div class="card-header border-0">
+          <h3 class="mb-0">Pedidos</h3>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Pedido</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Total</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of orderList">
+                <th scope="row">
+                  <div class="media align-items-center">
+                    <div class="media-body id-column">
+                      <span class="mb-0 text-sm">{{item.idPedido}}</span>
+                    </div>
+                  </div>
+                </th>
+                <td>
+                  {{item.pedido}}
+                </td>
+                <td>
+                  <span class="badge badge-dot mr-4">
+                    <i class="" [ngClass]="{'bg-default': item.estado == 'Finalizado','bg-primary': item.estado == 'Enviado','bg-info': item.estado == 'Preparando','bg-success': item.estado == 'Aprobado','bg-warning': item.estado == 'Pendiente'}"></i>
+                    <span class="" [ngClass]="{'text-default': item.estado == 'Finalizado','text-primary': item.estado == 'Enviado','text-info': item.estado == 'Preparando','text-success': item.estado == 'Aprobado','text-warning': item.estado == 'Pendiente'}">{{item.estado | titlecase}}</span>
+                  </span>
+                </td>
+                <td>
+                  {{item.fecha}}
+                </td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <span class="mr-2">{{item.total}}.00 PEN</span>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <a class="btn btn-icon-only text-light" [routerLink]="['./',item.idPedido]">
+                    <i class="fas fa-pen"></i>
+                  </a>
+                  <button class="btn btn-icon-only text-light">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer py-4">
+          <!--<nav aria-label="...">
+            <ul *ngIf="paginar.links.length > 0"class="pagination justify-content-end mb-0">
+              <li *ngFor="let page of paginar.links" (click)="paginarUrl(page.url)" [ngClass]="paginar.current_page == page.label ? 'page-item active' : 'page-item'">
+                <a class="page-link" href="javascript:void(0)">{{page.label}}</a>
+              </li>
+              
+            </ul>
+          </nav>-->
+        </div>
+      </div>
+
+      <ng-template #preload>
+        <div class="text-center bg-white preloader" >
+          <img src="./assets/img/theme/preload.gif" alt="" width="500">
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+
+</div>

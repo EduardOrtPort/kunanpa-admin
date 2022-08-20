@@ -1,0 +1,141 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 371.3px; background-size: cover; background-position: center top;">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-8"></span>
+
+</div>
+<div class="container-fluid mt--250">
+  <div class="row">
+    <div class="col-xl-12 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Editar pedido #{{pedido.idCompra}}</h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body" *ngIf="pedido.idCompra != 0; else preload">
+          <form>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-8">
+                  <h6 class="heading-small text-muted mb-4">Informacion General</h6>
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-date">Fecha</label>
+                    <span class="form-control form-control-alternative">{{pedido.fecha}}</span>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-state">Estado</label>
+                    <span class="form-control form-control-alternative">{{pedido.estado | titlecase}}</span>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <h6 class="heading-small text-muted mb-4">Acciones del Pedido</h6>
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-categ">Actualizar estado del pedido</label>
+                    <select id="inputState" class="form-control form-control-alternative" [(ngModel)]="stateSend.nuevoEstado">
+                      <option *ngFor="let state of estadosPedido" [value]="state">{{state}}</option>
+                    </select>
+                  </div>
+                  <div class="text-center">
+                    <button class="btn btn-primary" (click)="actualizarEstado()">Actualizar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4" />
+            <!-- Datos de Facturacion -->
+            <h6 class="heading-small text-muted mb-4">Datos de Facturación</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-factu">Facturación</label>
+                    <span class="form-control form-control-alternative">{{pedido.facturacion}}</span>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-email">Correo electrónico</label>
+                    <span class="form-control form-control-alternative">{{pedido.email}}</span>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-phone">Telefono</label>
+                    <span class="form-control form-control-alternative">{{pedido.telefono}}</span>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-delivery">Dirección de envío</label>
+                    <span class="form-control form-control-alternative">{{pedido.direccion}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4" />
+            <!-- Articulos -->
+            <h6 class="heading-small text-muted mb-4">Articulos</h6>
+            <div class="bg-white">
+              <div class="form-group">
+
+                <table class="table align-items-center table-flush">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Precio</th>
+                      <th scope="col">Cantidad</th>
+                      <th scope="col">Total</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of pedido.articulos">
+                      <th scope="row">
+                        <div class="media align-items-center">
+                          <a href="javascript:void(0)" class="avatar2 rounded-square mr-3">
+                            <img alt="Image placeholder" [src]="item.urlImagen">
+                          </a>
+                          <div class="media-body truncate">
+                            <span class="mb-0 text-sm">{{item.nombre}}</span>
+                          </div>
+                        </div>
+                      </th>
+                      <td>
+                        {{item.costo}}.00 PEN
+                      </td>
+                      <td>
+                        {{item.cantidad}}
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <span class="mr-2">{{item.total}}.00 PEN</span>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <button class="btn btn-icon-only text-light">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+        <ng-template #preload>
+          <div class="text-center bg-white preloader" >
+            <img src="./assets/img/theme/preload.gif" alt="" width="500">
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

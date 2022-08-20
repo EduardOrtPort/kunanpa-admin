@@ -1,0 +1,40 @@
+.image-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgb(50 50 93 / 15%), 0 1px 0 rgb(0 0 0 / 2%);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .image-space {
+    height: 100px;
+    width: 100px;
+
+    .galery{
+        max-height: 100%;
+        max-width: 100%;
+    }
+  }
+
+  .image-name {
+    background: #f3f4f7;
+    padding: 5px;
+    border-radius: 8px;
+    width: 100%;
+  }
+}
+
+.input-f-custom {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.input-f-custom input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}

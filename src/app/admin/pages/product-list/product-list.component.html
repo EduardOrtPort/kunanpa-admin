@@ -1,0 +1,122 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Productos</h5>
+                  <span class="h2 font-weight-bold mb-0">Publicados: {{productList.length}}</span>
+                </div>
+                <div class="col-auto">
+                  <a routerLink="./nuevo" routerLinkActive="router-link-active" class="btn btn-default">Agregar Producto</a>
+                </div>
+              </div>
+              <p class="mt-2 mb-0 text-muted text-sm">
+                <span class="text-success mr-2">Total: </span>
+                <span class="text-nowrap">{{productList.length}}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+
+
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0">Productos</h3>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Inventario</th>
+                <th scope="col">Categorias</th>
+                <th scope="col">Descuento</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of productList">
+                <th scope="row">
+                  <div class="media align-items-center">
+                    <a href="javascript:void(0)" class="avatar2 rounded-square mr-3">
+                      <img alt="Image placeholder" [src]="item.urlimagen">
+                    </a>
+                    <div class="media-body truncate">
+                      <span class="mb-0 text-sm">{{item.nombre}}</span>
+                    </div>
+                  </div>
+                </th>
+                <td>
+                  {{item.precioFinal}}.00 PEN
+                </td>
+                <td>
+                  <span class="badge badge-dot mr-4">
+                    <span [ngClass]="{'text-warning': item.stock < 10,'text-success': item.stock >= 10}">{{item.stock}}</span>
+                  </span>
+                </td>
+                <td>
+                  {{item.categoria}}
+                </td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <span class="mr-2">{{item.descuento}}.00 PEN</span>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <button class="btn btn-icon-only text-light">
+                    <i class="fas fa-pen"></i>
+                  </button>
+                  <button class="btn btn-icon-only text-light">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer py-4">
+          <nav aria-label="...">
+            <ul class="pagination justify-content-end mb-0">
+              <li *ngFor="let page of paginar" (click)="paginarUrl(page.url)" [ngClass]="page.active ? 'page-item active' : 'page-item'">
+                <a class="page-link" href="javascript:void(0)">{{page.label | safeHtml}}</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+</div>
+<!--
+                  <div class="avatar-group">
+                    <a href="javascript:void(0)" class="avatar avatar-sm" data-toggle="tooltip" data-original-title="Ryan Tompson">
+                      <img alt="Image placeholder" src="../assets/img/theme/team-1-800x800.jpg" class="rounded-circle">
+                    </a>
+                    <a href="javascript:void(0)" class="avatar avatar-sm" data-toggle="tooltip" data-original-title="Romina Hadid">
+                      <img alt="Image placeholder" src="../assets/img/theme/team-2-800x800.jpg" class="rounded-circle">
+                    </a>
+                    <a href="javascript:void(0)" class="avatar avatar-sm" data-toggle="tooltip" data-original-title="Alexander Smith">
+                      <img alt="Image placeholder" src="../assets/img/theme/team-3-800x800.jpg" class="rounded-circle">
+                    </a>
+                    <a href="javascript:void(0)" class="avatar avatar-sm" data-toggle="tooltip" data-original-title="Jessica Doe">
+                      <img alt="Image placeholder" src="../assets/img/theme/team-4-800x800.jpg" class="rounded-circle">
+                    </a>
+                  </div>
+-->
