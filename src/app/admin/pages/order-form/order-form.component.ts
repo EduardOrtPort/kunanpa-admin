@@ -65,23 +65,4 @@ export class OrderFormComponent implements OnInit {
 
   }
 
-
-  publicarProducto(){
-    /*const idLocal = localStorage.getItem('kunanpa_userId');
-    const idVSend: number = +idLocal; 
-
-    this.arreglo.idVendedor = idVSend;
-    this.arreglo.categorias = this.catArreglo;
-    this.arreglo.imagenes = this.urls as string[];
-    this.arreglo.descuento = this.arreglo.precioInicial - this.arreglo.precioFinal;
-
-    console.log(this.arreglo);
-
-    this.productService.crearProducto(this.arreglo)
-      .subscribe(resp => {
-        console.log(resp.message);
-      })*/
-
-  }
-
 }

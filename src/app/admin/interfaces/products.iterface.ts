@@ -51,7 +51,6 @@ export interface ArregloFloral{
     precioInicial: number;
     stock: number;
     categorias: number[];
-    imagenes: File[];
 }
 
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../../services/product.service';
 import { ArregloFloral } from '../../interfaces/products.iterface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-form',
@@ -13,9 +14,11 @@ export class ProductFormComponent implements OnInit {
   imagArreglo: any[] = [{}];
   urls: string[] | ArrayBuffer[] = [];
   namesImg: string[] = [];
+  private idLocal = localStorage.getItem('kunanpa_userId');
+  private idVSend: number = +this.idLocal; 
 
   arreglo: ArregloFloral = {
-    idVendedor: 0,
+    idVendedor: this.idVSend,
     nombre: '',
     descripcion: '',
     detalles: '',
@@ -23,8 +26,7 @@ export class ProductFormComponent implements OnInit {
     descuento: 0,
     precioInicial: 0,
     stock: 0,
-    categorias: [],
-    imagenes: [],
+    categorias: []
   }
 
   constructor(private productService: ProductService) { }
@@ -38,19 +40,28 @@ export class ProductFormComponent implements OnInit {
   }
 
   agregarCat(cat: number){
-    let valor: number = +cat;
-    this.catArreglo.push(valor);
+    const index = this.catArreglo.indexOf(cat);
 
-    localStorage.getItem('kunanpa_userId');
+    if(index){
+      let valor: number = +cat;
+      this.catArreglo.push(valor);
+
+      console.log(this.catArreglo);
+    }
+
+    return ;
+
   }
 
   quitarCat(cat: number){
-    const index = this.catArreglo.indexOf(cat)
+    const index = this.catArreglo.indexOf(cat);
     if (index !== -1) {
       this.catArreglo.splice(index, 1);
     }
     return ;
   }
+
+
   /*
   toArray(value: string): void {
     this.imagArreglo = value.split(/[\r\n]+/);
@@ -81,23 +92,33 @@ export class ProductFormComponent implements OnInit {
     }
   }
 
+  quitarImagen(imageP: number){
+    if (imageP !== -1) {
+      this.imagArreglo.splice(imageP, 1);
+      this.namesImg.splice(imageP, 1);
+      this.urls.splice(imageP, 1);
+    }
+    return ;
+  }
+
   publicarProducto(){
-    const idLocal = localStorage.getItem('kunanpa_userId');
-    const idVSend: number = +idLocal; 
+    if(this.arreglo.nombre.trim().length === 0){
+      console.log(this.arreglo);
+      Swal.fire('Error', 'El campo de nombre es necesario', 'error');
+    }else{
+  
+      this.arreglo.categorias = this.catArreglo;
+      this.arreglo.descuento = this.arreglo.precioInicial - this.arreglo.precioFinal;
+  
+      console.log(this.arreglo);
+  
+      this.productService.crearProducto(this.arreglo)
+        .subscribe(resp => {
+          console.log(resp.message);
+          Swal.fire('Listo', resp.message, 'success');
+        })
+    }
 
-    console.log('Valores q se agregaran a las imagenes',this.imagArreglo);
-
-    this.arreglo.idVendedor = idVSend;
-    this.arreglo.categorias = this.catArreglo;
-    this.arreglo.imagenes = this.imagArreglo;
-    this.arreglo.descuento = this.arreglo.precioInicial - this.arreglo.precioFinal;
-
-    console.log(this.arreglo);
-
-    this.productService.crearProducto(this.arreglo)
-      .subscribe(resp => {
-        console.log(resp.message);
-      })
 
   }
 
