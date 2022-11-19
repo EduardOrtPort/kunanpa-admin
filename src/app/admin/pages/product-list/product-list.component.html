@@ -9,7 +9,7 @@
               <div class="row">
                 <div class="col">
                   <h5 class="card-title text-uppercase text-muted mb-0">Productos</h5>
-                  <span class="h2 font-weight-bold mb-0">Publicados: {{productList.length}}</span>
+                  <span class="h2 font-weight-bold mb-0">Mostrando: {{productList.length}}</span>
                 </div>
                 <div class="col-auto">
                   <a routerLink="./nuevo" routerLinkActive="router-link-active" class="btn btn-default">Agregar Producto</a>
@@ -17,7 +17,7 @@
               </div>
               <p class="mt-2 mb-0 text-muted text-sm">
                 <span class="text-success mr-2">Total: </span>
-                <span class="text-nowrap">{{productList.length}}</span>
+                <span class="text-nowrap">{{totalProduct}}</span>
               </p>
             </div>
           </div>
@@ -49,7 +49,7 @@
                 <th scope="col"></th>
               </tr>
             </thead>
-            <tbody>
+            <tbody *ngIf="isLoad === false; else preload">
               <tr *ngFor="let item of productList">
                 <th scope="row">
                   <div class="media align-items-center">
@@ -57,7 +57,7 @@
                       <img alt="Image placeholder" [src]="item.urlimagen">
                     </a>
                     <div class="media-body truncate">
-                      <span class="mb-0 text-sm">{{item.nombre}}</span>
+                      <span class="mb-0 text-sm">{{item.nombre | truncate:15}}</span>
                     </div>
                   </div>
                 </th>
@@ -81,12 +81,17 @@
                   <button class="btn btn-icon-only text-light">
                     <i class="fas fa-pen"></i>
                   </button>
-                  <button class="btn btn-icon-only text-light">
+                  <button class="btn btn-icon-only text-light" (click)="eliminar(item.id)">
                     <i class="fas fa-trash"></i>
                   </button>
                 </td>
               </tr>
             </tbody>
+            <ng-template #preload>
+              <div class="text-center bg-white preloader" >
+                <img src="./assets/img/theme/preload.gif" alt="" width="900">
+              </div>
+            </ng-template>
           </table>
         </div>
         <div class="card-footer py-4">

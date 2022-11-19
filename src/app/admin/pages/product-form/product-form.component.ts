@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 export class ProductFormComponent implements OnInit {
 
   catArreglo: number[] = [];
-  imagArreglo: any[] = [{}];
+  imagArreglo: File[] = [];
   urls: string[] | ArrayBuffer[] = [];
   namesImg: string[] = [];
   private idLocal = localStorage.getItem('kunanpa_userId');
@@ -26,7 +26,8 @@ export class ProductFormComponent implements OnInit {
     descuento: 0,
     precioInicial: 0,
     stock: 0,
-    categorias: []
+    categorias: [],
+    imagenes: []
   }
 
   constructor(private productService: ProductService) { }
@@ -90,6 +91,7 @@ export class ProductFormComponent implements OnInit {
         reader.readAsDataURL(event.target.files[i]);
       }
     }
+    console.log(this.imagArreglo);
   }
 
   quitarImagen(imageP: number){
@@ -97,6 +99,7 @@ export class ProductFormComponent implements OnInit {
       this.imagArreglo.splice(imageP, 1);
       this.namesImg.splice(imageP, 1);
       this.urls.splice(imageP, 1);
+      console.log(this.imagArreglo);
     }
     return ;
   }
@@ -106,13 +109,30 @@ export class ProductFormComponent implements OnInit {
       console.log(this.arreglo);
       Swal.fire('Error', 'El campo de nombre es necesario', 'error');
     }else{
-  
-      this.arreglo.categorias = this.catArreglo;
+
       this.arreglo.descuento = this.arreglo.precioInicial - this.arreglo.precioFinal;
+      const fd = new FormData;
+      fd.append('idVendedor',this.idVSend.toString());
+      fd.append('nombre',this.arreglo.nombre);
+      fd.append('descripcion',this.arreglo.descripcion);
+      fd.append('detalles',this.arreglo.detalles);
+      fd.append('descuento',this.arreglo.descuento.toString());
+      fd.append('precioFinal',this.arreglo.precioFinal.toString());
+      fd.append('stock',this.arreglo.stock.toString());
+      
+      for(var i = 0; i < this.catArreglo.length; i++){
+        fd.append('categorias[]',this.catArreglo[i].toString());
+      }
+      for(var i = 0; i < this.imagArreglo.length; i++){
+        fd.append('imagenes[]',this.imagArreglo[i]);
+      }
   
-      console.log(this.arreglo);
+/*       this.arreglo.categorias = this.catArreglo;
+      this.arreglo.imagenes = this.imagArreglo; */
   
-      this.productService.crearProducto(this.arreglo)
+      console.log(fd);
+  
+      this.productService.crearProducto(fd)
         .subscribe(resp => {
           console.log(resp.message);
           Swal.fire('Listo', resp.message, 'success');

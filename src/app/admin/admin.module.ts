@@ -19,6 +19,7 @@ import { ProductFormComponent } from './pages/product-form/product-form.componen
 import { OrderListComponent } from './pages/order-list/order-list.component';
 import { OrderFormComponent } from './pages/order-form/order-form.component';
 import { SafeHtmlPipe } from '../pipes/safe-html.pipe';
+import { TruncatePipe } from "../pipes/truncate.pipe";
 
 
 
@@ -43,7 +44,8 @@ import { SafeHtmlPipe } from '../pipes/safe-html.pipe';
     ProductFormComponent,
     OrderListComponent,
     OrderFormComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    TruncatePipe
   ]
 })
 

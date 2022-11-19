@@ -12,7 +12,9 @@ export class ProductService {
   public productList: Flower[] = [];
   public paginar: Link[];
   public categoryList: Categorias[];
+  public totalProduct: number;
   private _baseUrl: string = environment.baseUrl;
+  private _baseUrl2: string = 'https://kunampa-back-production.up.railway.app/api';
 
   constructor(private http: HttpClient) { }
 
@@ -24,8 +26,11 @@ export class ProductService {
           'Authorization': 'Bearer ' + localStorage.getItem('kunanpa_token')
       }})
     .subscribe(resp =>{
+      console.log(resp)
+      let total = localStorage.setItem('total',resp.total.toString());
       this.paginar =  resp.links;
       this.productList = resp.data;
+      this.totalProduct = resp.total;
     })
 
   }
@@ -50,11 +55,16 @@ export class ProductService {
     return this.categoryList;
   }
 
-  crearProducto(arreglo: ArregloFloral): Observable<any>{
+  crearProducto(arreglo: any): Observable<any>{
     return this.http.post<any>(`${this._baseUrl}/flores`,arreglo,{
       headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('kunanpa_token')
       }});
+  }
+
+  eliminarProducto(id: number){
+    this.http.delete<any>(`${this._baseUrl2}/flores/${id}`)
+      .subscribe((res) => console.log(res));
   }
 
 

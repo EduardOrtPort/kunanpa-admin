@@ -12,6 +12,9 @@ export class OrderService {
   public orderList: Pedido[] = [];
   public pedidos: PedidosResponse;
   private _baseUrl: string = environment.baseUrl;
+  private _aux: string = "default";
+  public cumple: number = 0;
+  public aniv: number = 0;
 
   constructor(private http: HttpClient) { }
 
@@ -21,12 +24,10 @@ export class OrderService {
             'Authorization': 'Bearer ' + localStorage.getItem('kunanpa_token')
         }})
         .subscribe(resp =>{
-            console.log(resp);
-            console.log(resp.data);
             this.pedidos = resp;
             this.orderList = resp.data;
           })
-      
+   
         return this.pedidos;
   }
 
