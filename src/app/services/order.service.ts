@@ -45,6 +45,12 @@ export class OrderService {
         }});
   }
 
-  
+  reporteVentas(){
+    return this.http.get<any>(`${this._baseUrl}/dashboard/ventas`);
+  }
+
+  reportePedidos(){
+    return this.http.get<any>(`${this._baseUrl}/dashboard/pedidos`);
+  }
 
 }

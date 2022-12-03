@@ -11,7 +11,7 @@ export class ProfileService {
 
   private _store: StoreData;
   private _baseUrl: string = environment.baseUrl;
-  private _baseUrl2: string = 'https://kunampa-back-production.up.railway.app/api'
+  private _baseUrl2: string = 'https://new-back-kunampa-production.up.railway.app/api'
 
   get store(): StoreData{
     return {...this._store!};

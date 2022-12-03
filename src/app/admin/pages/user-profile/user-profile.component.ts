@@ -38,15 +38,17 @@ export class UserProfileComponent implements OnInit {
   }
 
   constructor(public profileService: ProfileService) { 
+  
+  }
+
+  ngOnInit() {
+
   //let nombreTienda = localStorage.setItem('kunanpa_user', 'FlowerShop')
   //let correoTienda = localStorage.setItem('storeEmail', 'ventas@flowershop.com')
   //let telefonoTienda = localStorage.setItem('storePhone', '99898743')
   //let direccionTienda = localStorage.setItem('storeAdress',"Puente Piedra Av. Pan. Norte Km.123")
   //let imagenTienda = localStorage.setItem('kunanpa_logo', "https://res.cloudinary.com/yachayhuasi/image/upload/v1659742329/kunampa/flower_shop_uolu4v.png")
 
-  }
-
-  ngOnInit() {
     
     //this.profileService.getStoreData(this.userId)
     //.subscribe(res => {
